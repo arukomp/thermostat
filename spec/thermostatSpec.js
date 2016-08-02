@@ -25,4 +25,17 @@ describe("Thermostat", function() {
     expect(thermostat.temperature()).toEqual(10);
   })
 
+  it ("has a power mode and it is on by default",function(){
+    expect(thermostat.powerMode()).toEqual(true);
+  })
+
+  it("has max degrees 25 if power mode is on",function(){
+    for(var i = 0; i<5; i++) {
+      thermostat.tempUp();
+    }
+    thermostat.tempUp();
+    expect(thermostat.temperature()).toEqual(25);
+
+  })
+
 });
