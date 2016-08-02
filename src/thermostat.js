@@ -1,7 +1,12 @@
+"use strict";
+
 function Thermostat() {
-  this._temperature = 20;
+  this.DEFAULT_TEMP = 20;
+  this._temperature = this.DEFAULT_TEMP;
   this.MIN_TEMP = 10;
   this.MAX_TEMP = 25;
+  this.MAX_TEMP_PSM_ON = 25;
+  this.MAX_TEMP_PSM_OFF = 32;
   this._powerMode = true;
 }
 Thermostat.prototype =   {
@@ -22,6 +27,10 @@ Thermostat.prototype =   {
     }
   },
 
+  reset: function() {
+    this._temperature = this.DEFAULT_TEMP;
+  },
+
   powerMode: function() {
     return this._powerMode;
 
@@ -30,10 +39,20 @@ Thermostat.prototype =   {
   setPowerMode: function(mode) {
     this._powerMode = mode;
     if (mode === true ) {
-      this.MAX_TEMP = 25;
+      this.MAX_TEMP = this.MAX_TEMP_PSM_ON;
     }
     else {
-      this.MAX_TEMP = 32;
+      this.MAX_TEMP = this.MAX_TEMP_PSM_OFF;
+    }
+  },
+
+  colour: function() {
+    if (this._temperature < 18) {
+      return "green";
+    } else if (this._temperature < 25) {
+      return "yellow";
+    } else {
+      return "red";
     }
   }
 };
