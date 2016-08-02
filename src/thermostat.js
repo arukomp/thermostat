@@ -2,57 +2,64 @@
 
 function Thermostat() {
   this.DEFAULT_TEMP = 20;
-  this._temperature = this.DEFAULT_TEMP;
+  this.temperature = this.DEFAULT_TEMP;
   this.MIN_TEMP = 10;
-  this.MAX_TEMP = 25;
   this.MAX_TEMP_PSM_ON = 25;
   this.MAX_TEMP_PSM_OFF = 32;
-  this._powerMode = true;
+  this.powerSavingMode = true;
 }
 Thermostat.prototype =   {
-  temperature: function(){
-    return this._temperature;
+  getCurrentTemperature: function(){
+    return this.temperature;
   },
 
-  tempUp: function() {
-    if (this._temperature < this.MAX_TEMP){
-        this._temperature += 1;
-    }
-
-  },
-
-  tempDown: function() {
-    if (this._temperature > this.MIN_TEMP) {
-      this._temperature -= 1;
+  up: function() {
+    if (!this.isMaximumTemperature()){
+      this.temperature += 1;
     }
   },
 
-  reset: function() {
-    this._temperature = this.DEFAULT_TEMP;
+  down: function() {
+    if (!this.isMinimumTemperature()) {
+      this.temperature -= 1;
+    }
   },
 
-  powerMode: function() {
-    return this._powerMode;
+  resetTemperature: function() {
+    this.temperature = this.DEFAULT_TEMP;
+  },
+
+  isMinimumTemperature: function() {
+    return this.temperature <= this.MIN_TEMP;
+  },
+
+  isMaximumTemperature: function() {
+    if (this.isPowerSavingModeOn() === true) {
+      return this.temperature === this.MAX_TEMP_PSM_ON;
+    }
+    return this.temperature === this.MAX_TEMP_PSM_OFF;
+  },
+
+  isPowerSavingModeOn: function() {
+    return this.powerSavingMode === true;
 
   },
 
-  setPowerMode: function(mode) {
-    this._powerMode = mode;
-    if (mode === true ) {
-      this.MAX_TEMP = this.MAX_TEMP_PSM_ON;
-    }
-    else {
-      this.MAX_TEMP = this.MAX_TEMP_PSM_OFF;
-    }
+  switchPowerSavingModeOff: function() {
+    this.powerSavingMode = false;
+  },
+
+  switchPowerSavingModeOn: function() {
+    this.powerSavingMode = true;
   },
 
   colour: function() {
-    if (this._temperature < 18) {
-      return "green";
-    } else if (this._temperature < 25) {
-      return "yellow";
+    if (this.temperature < 18) {
+      return "low-usage";
+    } else if (this.temperature < 25) {
+      return "medium-usage";
     } else {
-      return "red";
+      return "high-usage";
     }
   }
 };
