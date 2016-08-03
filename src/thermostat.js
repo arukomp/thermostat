@@ -48,3 +48,20 @@
   Thermostat.prototype.switchPowerSavingModeOn = function() {
     this.PowerSavingModeOn = true;
   };
+
+  Thermostat.prototype.reset =  function() {
+    this.temperature = 20;
+  };
+
+  Thermostat.prototype.getColor = function() {
+    if (this.getCurrentTemperature() < 18) {
+      return 'green';
+    };
+
+    if (this.getCurrentTemperature() < 25) {
+      return 'yellow';
+    };
+    
+    return 'red';
+
+  };

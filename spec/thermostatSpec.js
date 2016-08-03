@@ -43,19 +43,47 @@
       thermostat.switchPowerSavingModeOn();
       expect(thermostat.isPowerSavingModeOn()).toBe(true);
     });
-    // describe('when power saving mode is on', function() {
-      it('has a maximum temperature of 25 degrees', function() {
-        for (var i = 0; i < 6; i++) {
+
+    it('has a maximum temperature of 25 degrees', function() {
+      for (var i = 0; i < 6; i++) {
+        thermostat.increaseTemperature();
+      }
+      expect(thermostat.getCurrentTemperature()).toEqual(25);
+
+    });
+
+    it('has a maximum temperature of 32 degrees', function() {
+      thermostat.switchPowerSavingModeOff();
+      for (var i = 0; i < 13; i++) {
+        thermostat.increaseTemperature();
+      }
+      expect(thermostat.getCurrentTemperature()).toEqual(32);
+    });
+
+    it('resets temperature to 20 degrees', function() {
+      thermostat.increaseTemperature();
+      thermostat.reset();
+      expect(thermostat.getCurrentTemperature()).toEqual(20);
+    });
+
+    describe('Color state', function() {
+
+      it('displays color based on temperature-yellow', function() {
+        expect(thermostat.getColor()).toEqual('yellow');
+      });
+
+      it('displays color based on temperature-green', function() {
+        for (var i = 0; i < 3; i++) {
+          thermostat.decreaseTemperature();
+        }
+        expect(thermostat.getColor()).toEqual('green');
+      });
+
+      it('displays coror based on temperature-red', function() {
+        for (var i = 0; i < 5; i++) {
           thermostat.increaseTemperature();
         }
-        expect(thermostat.getCurrentTemperature()).toEqual(25);
-    // });
+        expect(thermostat.getColor()).toEqual('red');
       });
-      it('has a maximum temperature of 32 degrees', function() {
-        thermostat.switchPowerSavingModeOff();
-        for (var i = 0; i < 13; i++) {
-          thermostat.increaseTemperature();
-        }
-        expect(thermostat.getCurrentTemperature()).toEqual(32);
-      });
-});
+    });
+  });
