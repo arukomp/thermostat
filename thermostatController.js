@@ -33,9 +33,23 @@ $(document).ready(function(){
     $('#temperature').css('color',thermostat.getColor());
   };
 
-  $.get('http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&APPID=7f22eb9c5945899f54a9c78714e1932a', function(data){
-     temp = data.main.temp;
-     $('#display').text(temp);
+  var updateWeather = function(city) {
+    var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
+    var units = '&units=metric';
+    var key = '&APPID=7f22eb9c5945899f54a9c78714e1932a';
+    $.get(url + units + key, function(data){
+       $('#display').text(data.main.temp);
+       $('#cityName').text(data.name);
+    });
+  };
+
+  $('#getTemp').click(function(){
+    var city = $('#city').val();
+    updateWeather(city);
   });
+
+  updateWeather("Rome");
+
+
 
 });
