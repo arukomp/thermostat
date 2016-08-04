@@ -1,13 +1,18 @@
 // interface.js
 $(document).ready(function() {
   var thermostat = new Thermostat();
-  // updateTemperature();
   $.getJSON('http://localhost:4567/temperature', function(data) {
-      thermostat.temperature = data.temp;
-      thermostat.powerSavingMode = data.psm;
-      updateTemperature();
-      updatePowerMode();
-      });
+    thermostat.temperature = data.temp;
+    if (data.psm == "true") {
+      thermostat.switchPowerSavingModeOn();
+    } else {
+      thermostat.switchPowerSavingModeOff();
+    }
+    $('#current-city').val(data.city);
+    displayWeather(data.city);
+    updateTemperature();
+    updatePowerMode();
+  });
 
   $('#temp-up').click(function() {
     thermostat.up();
@@ -26,14 +31,12 @@ $(document).ready(function() {
 
   $('#psm-on').click(function() {
     thermostat.switchPowerSavingModeOn();
-    // $('#power-saving').text('on')
     updatePowerMode();
     updateTemperature();
   });
 
   $('#psm-off').click(function() {
     thermostat.switchPowerSavingModeOff();
-    // $('#power-saving').text('off')
     updatePowerMode();
     updateTemperature();
   });
@@ -47,6 +50,10 @@ $(document).ready(function() {
   $('#select-city').submit(function(event) {
     event.preventDefault();
     var city = $('#current-city').val();
+    var requestData = {
+      city: city,
+    };
+    $.post('http://localhost:4567/temperature', requestData, function(){});
     displayWeather(city);
   })
 
