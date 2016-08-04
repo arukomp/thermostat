@@ -39,7 +39,7 @@ $(document).ready(function() {
     event.preventDefault();
     var city = $('#current-city').val();
     displayWeather(city);
-    $('#current-temperature').text(data.main.temp);
+    // $('#current-temperature').text(data.main.temp);
   })
 
 

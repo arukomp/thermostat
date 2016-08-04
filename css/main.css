@@ -1,3 +1,51 @@
+html {
+  background: url('https://images.unsplash.com/photo-1428501835801-0079eee15b90') no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+}
+body {
+  font-family: 'Roboto', Helvetica Neue, sans-serif;
+  height: 100%;
+}
+
+p.title {
+  font-size: 30px;
+}
+
+span#current-temperature,
+span#temperature,
+span#power-saving{
+  font-weight: 700;
+}
+
+.button {
+  height: 25px;
+  font-size: 18px;
+  font-weight: 100;
+  padding: auto auto;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: white;
+}
+.container {
+  position: relative;
+  width: 600px;
+  margin: auto auto;
+  padding: 20px;
+  border: 1px solid black;
+  filter: blur(5px);
+  background-color: rgba(255,255,255,0.4);
+}
+
+#weather-station {
+  text-align: center;
+}
+
+#current-city {
+  height: 20px;
+  border: 1px solid black;
+
+}
 .low-usage {
   color: green;
 }
@@ -9,3 +57,4 @@
 .high-usage {
   color: red;
 }
+
