@@ -5,44 +5,46 @@
     <title>Thermostat</title>
     <link rel="stylesheet" type="text/css" href="./lib/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./lib/bootstrap/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="./lib/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./lib/css/thermostat.css">
   </head>
   <body  >
     <div class="container" >
-      <div class="row">
-        <div class="col-md-4">
-          <section>
-            <h1>Thermostat</h1>
-            <h2 id="display"></h2>
-            <button class="btn btn-default" id="upButton">Up</button>
-            <button class="btn btn-default" id="downButton">Down</button>
-            <button id="resetButton" class="btn btn-default">Reset</button>
-          </section>
+      <div class="col-md-4">
+        <section class=text-center >
+          <!-- <h1>Thermostat</h1> -->
+          <h1 id="temperature" class=text-center ></h1>
+          <button id="temp-up" class="btn btn btn-default btn-lg" >▲</button>
+          <button id="temp-down" class="btn btn btn-default btn-lg">▼</button>
+            &nbsp; &nbsp;
+          <button id="temp-reset" class="btn btn-default btn-lg">Reset</button>
+        </section>
+        <br>
+        <br>
+        <section class=text-center ><h4>
+          Power saving mode is <span id="power-saving-status">ON</span></h4>
           <br>
-          <br>
-          <section>
-            Power saving mode is <span id="powerSavingStatus">ON</span>
-            <br>
-            <br>
-            <button id="powerSavingOn" class="btn btn-default">PSM on</button>
-            <button id="powerSavingOff" class="btn btn-default">PSM off</button>
-          </section>
-        </div>
-        <div class="col-md-4">
-          <img id="thermometer" src="./lib/images/vector_thermometer.jpg" alt="" />
-        </div>
-      </div>
-      <div class="row">
+          <button id="power-saving-on" class="btn btn-primary btn-lg">ON</button>
+            &nbsp;
+          <button id="power-saving-off" class="btn btn-primary btn-lg">OFF</button>
+        </section>
         <section>
-          <h3>Current temperature: <span id="current-temperature"></span></h3>
-          <form id="select-city">
-            <div class="form-group">
+          <br>
+          <br>
+          <h3 class=text-center >Current temperature outside: <span id="current-temperature"></span>˚C</h3>
+          <form id="select-city" class=text-center >
+            <!-- <div class="form-group"> -->
               <input id="current-city" type="text" placeholder="Enter a city" />
               <input type="submit" class="btn btn-default" />
-            </div>
+            <!-- </div> -->
           </form>
         </section>
       </div>
+      <div class="col-md-4">
+        <img id="thermometer" src="./lib/images/weather-thermometer5.png" alt="" />
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
 
 
     <script src="lib/js/jquery-3.1.0.min.js"></script>

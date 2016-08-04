@@ -1,62 +1,79 @@
 'use strict';
+describe('Thermostat', function(){
+var thermostat;
 
-describe('Thermostat',function() {
-  var thermostat;
-  beforeEach(function() {
+  beforeEach(function(){
     thermostat = new Thermostat();
   });
-  describe("temperature",function() {
-    it("is set to be 20 degrees as initial value",function() {
-      expect(thermostat.temperature).toEqual(20);
-    });
-    it("can be increased with 'up button'",function() {
-      thermostat.increaseTemperature(1);
-      expect(thermostat.temperature).toEqual(21);
-    });
-    it("can be decreased with 'down button'",function() {
-      thermostat.decreaseTemperature(1);
-      expect(thermostat.temperature).toEqual(19);
-    });
-    it("can't be lower then 10 degrees",function () {
-      thermostat.decreaseTemperature(11);
-      expect(thermostat.temperature).toEqual(10);
-    });
-    it('can be reset to 20 degrees with the reset button', function() {
-      thermostat.increaseTemperature(3);
-      thermostat.reset();
-      expect(thermostat.temperature).toEqual(20);
-    });
-  });
-  describe('power saving mode',function() {
-    it("when it's set 'on' max temperature is 25 degrees",function() {
-      thermostat.setPowerSavingModeOn();
-      thermostat.increaseTemperature(6);
-      expect(thermostat.temperature).toEqual(25);
-    });
-    it("when it's set 'off' max temperature is 32 degrees",function() {
-      thermostat.setPowerSavingModeOff();
-      thermostat.increaseTemperature(15);
-      expect(thermostat.temperature).toEqual(32);
-    });
-    it("is set on by default",function() {
-      expect(thermostat.powerSavingMode).toBe(true);
-    });
-    it("can be switched off and on",function() {
-      thermostat.setPowerSavingModeOff();
-      expect(thermostat.powerSavingMode).toBe(false);
-      thermostat.setPowerSavingModeOn();
-      expect(thermostat.powerSavingMode).toBe(true);
-    });
-  });
-  describe('displaying usage levels', function() {
-    it('changes its color based on energy usage', function(){
-      expect(thermostat.energyUsage()).toEqual("medium-usage");
-      thermostat.decreaseTemperature(3);
-      expect(thermostat.energyUsage()).toEqual("low-usage");
-      thermostat.reset();
-      thermostat.increaseTemperature(5);
-      expect(thermostat.energyUsage()).toEqual("high-usage");
 
+  describe('Temperature control', function(){
+    it('starts at 20 degrees', function(){
+      expect(thermostat.getCurrentTemperature()).toEqual(20);
+    });
+
+    it('increases in temperature with the up button', function(){
+      thermostat.up();
+      expect(thermostat.getCurrentTemperature()).toEqual(21);
+    });
+
+    it('decreases in temperature with the down button', function(){
+      thermostat.down();
+      expect(thermostat.getCurrentTemperature()).toEqual(19);
+    });
+
+    it('has a minimum temperature of 10 degrees', function(){
+      for( var i = 0; i <11; i++){
+        thermostat.down();
+      };
+      expect(thermostat.getCurrentTemperature()).toEqual(10);
+    });
+    it ('temperature can be reset to 20', function(){
+      thermostat.down();
+      thermostat.resetTemperature();
+      expect(thermostat.getCurrentTemperature()).toEqual(20);
+    });
+  });
+
+  describe('Power saving mode', function(){
+    it ('power saving mode is on by default', function(){
+      expect(thermostat.isPowerSavingModeOn()).toBe(true);
+    });
+
+    it ('can switch PSM off', function(){
+      thermostat.switchPowerSavingModeOff();
+      expect(thermostat.isPowerSavingModeOn()).toBe(false);
+    });
+
+    it ('can switch PSM on', function(){
+      thermostat.switchPowerSavingModeOff();
+      thermostat.switchPowerSavingModeOn();
+      expect(thermostat.isPowerSavingModeOn()).toBe(true);
+    });
+
+    it ('has a maximum temperature of 25 degrees when power saving is on', function(){
+      for( var i = 0; i <6; i++){
+        thermostat.up();
+      };
+      expect(thermostat.getCurrentTemperature()).toEqual(25);
+    });
+  });
+
+  describe ('Displaying energy usage levels', function(){
+    it ('shows low energy when temperature is below 18 degrees', function(){
+      for( var i = 0; i < 3; i++){
+        thermostat.down();
+      };
+      expect(thermostat.EnergyUsage()).toEqual('low-usage');
+    });
+    it ('shows medium energy when temperature is between 18 and 25 degrees (inclusive)', function(){
+      expect(thermostat.EnergyUsage()).toEqual('medium-usage');
+    });
+    it ('shows high energy when temperature is above 25 degrees', function(){
+      thermostat.switchPowerSavingModeOff();
+      for( var i = 0; i<6; i++){
+        thermostat.up();
+      };
+      expect(thermostat.EnergyUsage()).toEqual('high-usage');
     });
   });
 });

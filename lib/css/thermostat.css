@@ -3,23 +3,40 @@ body {
   background: -webkit-linear-gradient(to left, #E0EAFC , #CFDEF3); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #E0EAFC , #CFDEF3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-#display {
+
+#temperature {
   font-size: 90px;
 }
 
 #thermometer {
-    vertical-align: middle;
-    height: 300px;
-    margin-top: 60px;
+  vertical-align: middle;
+  height: 350px;
+  margin-top: 60px;
 }
+
 .low-usage {
   color: green;
 }
 
 .medium-usage {
-    color: yellow;
+  color: yellow;
 }
 
 .high-usage {
   color: red;
+}
+
+.power-saving-on {
+  color: green;
+}
+
+.power-saving-off {
+  color: red
+}
+
+
+.divider{
+    width:30px;
+    height:auto;
+    display:inline-block;
 }
